@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <select name="" id="province">
+        <option value="">---请选择省会---</option>
+    </select>
+    <select name="" id="city">
+        <option value="">---请选择城市---</option>
+    </select>
+    <select name="" id="area">
+        <option value="">---请选择地区---</option>
+    </select>
+    <script type="text/javascript">
+        var arr = {
+            "河南省":[
+                {
+                    "新乡市":["凤泉区","红旗区"],
+                    "许昌市":["魏都区","东城区"]
+                }
+            ],
+            "湖北省":[
+                {
+                "武汉市":["武昌区","汉阳区"],
+                "荆门市":["东宝区","掇刀区"]
+                }
+            ],
+            "湖南省":[
+                {
+                    "长沙市":["天心区","芙蓉区"],
+                    "株洲市":["荷塘区","石峰区"]
+                }
+            ]
+        }
+        var province = document.getElementById("province");
+        var city = document.getElementById("city");
+        var area = document.getElementById("area")
+        for (var i in arr){
+            province.innerHTML+= "<option>"+i+"</option>"
+        }   
+        province.onchange=function(){
+            cityChange();
+            areaChange();
+        } 
+        city.onchange=function(){
+            areaChange();
+        }
+        init();
+        function cityChange(){
+            city.innerHTML=""; 
+            var value=arr[province.value][0];
+            for(var m in value){
+                city.innerHTML+= "<option>"+m+"</option>";
+            }
+        }
+        cityChange();
+        function areaChange(){
+            area.innerHTML="";
+            var areaValue=arr[province.value][0][city.value];
+            // console.log(areaValue)
+            for (var n=0;n<areaValue.length; n++){
+                area.innerHTML+="<option>"+areaValue[n]+"</option>"
+            }
+        }
+        areaChange()
+    </script>
+</body>
+</html>
